@@ -1,8 +1,8 @@
 id=MiuiHome
-name=Miui Home
-version=v1.19
-versionCode=19
+name=Miui Home 30
+version=v2.0
+versionCode=20
 author=Rei Ryuki the Fixer
-description=Home launcher app by Xiaomi Inc. ported for any Android 5 (SDK 21) and up non-Miui ROM.
+description=Home launcher app target SDK 30 by Xiaomi Inc. ported for any Android 5 (SDK 21) and up non-Miui ROM.
 
 

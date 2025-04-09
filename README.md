@@ -1,4 +1,4 @@
-# Miui Home Magisk Module
+# Miui Home 30 Magisk Module
 
 ## DISCLAIMER
 - Miui apps are owned by Xiaomi™.
@@ -8,7 +8,7 @@
 - Home launcher app by Xiaomi Inc. ported and integrated as a Magisk Module for all supported and rooted devices with Magisk
 
 ## Sources
-- https://apkmirror.com com.miui.home & com.android.quicksearchbox by Xiaomi Inc.
+- https://apkmirror.com com.miui.home (target SDK 30) & com.android.quicksearchbox by Xiaomi Inc.
 - libmagiskpolicy.so: Kitsune Mask R6687BB53
 
 ## Screenshots
@@ -43,11 +43,11 @@
 - Global: https://t.me/ryukinotes/35
 
 ## Troubleshootings
-- https://t.me/androidryukimodsdiscussions/64467
+- https://t.me/ryukinotes/19
 - Global: https://t.me/ryukinotes/34
 
 ## Support & Bug Report
-- https://t.me/androidryukimodsdiscussions/2618
+- https://t.me/ryukinotes/54
 - If you don't do above, issues will be closed immediately
 
 ## Credits and Contributors

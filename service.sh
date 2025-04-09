@@ -102,6 +102,11 @@ PKG=com.android.quicksearchbox
 pm grant $PKG android.permission.READ_CONTACTS
 pm grant $PKG android.permission.READ_PHONE_STATE
 grant_permission
+if getprop ro.product.mod_device | grep _global; then
+  pm disable $PKG
+else
+  pm enable $PKG
+fi
 
 
 
