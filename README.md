@@ -37,6 +37,7 @@
 - Uninstall app requires 2 confirmations
 - Minimize button in Freeform window doesn't work because I'm using "setTaskAlwaysOnTop" method so it can be showed on top of current task
 - Split screen doesn't work except this launcher is set as default launcher if the recents provider is activated
+- Does not support navbar overlay in Android 15 QPR2 ROMs and up if recents provider is activated
 
 ## Optionals
 - https://t.me/ryukinotes/42

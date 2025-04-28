@@ -263,6 +263,11 @@ if [ "`grep_prop miui.recents $OPTIONALS`" == 1 ]; then
     mv -f $FILE $FILE.bak
   done
   ui_print " "
+  DIR=/overlay/PixelConfigOverlayCommon
+  [ -d /product$DIR ] && REPLACE="$REPLACE /product$DIR"
+  [ -d /vendor$DIR ] && REPLACE="$REPLACE /vendor$DIR"
+  [ -d /odm$DIR ] && REPLACE="$REPLACE /system/odm$DIR"
+  [ -d /vendor/odm$DIR ] && REPLACE="$REPLACE /vendor/odm$DIR"
 else
   RECENTS=false
   rm -rf $MODPATH/system/product/overlay
@@ -387,11 +392,28 @@ rm -f `find $MODPATH/system -type f -name extract`
 hide_oat
 
 # overlay
-if [ "$RECENTS" == true ] && [ ! -d /product/overlay ]; then
-  ui_print "- Using /vendor/overlay/ instead of /product/overlay/"
-  mkdir -p $MODPATH/system/vendor
-  mv -f $MODPATH/system/product/overlay $MODPATH/system/vendor
-  ui_print " "
+if [ "$RECENTS" == true ]; then
+  if [ "`grep_prop overlay.location $OPTIONALS`" == odm ]\
+  && [ -d /odm/overlay ]; then
+    if grep /odm /data/adb/magisk/magisk\
+    || grep /odm /data/adb/magisk/magisk64\
+    || grep /odm /data/adb/magisk/magisk32; then
+      ui_print "- Using /odm/overlay/ instead of /product/overlay/"
+      mkdir -p $MODPATH/system/odm
+      mv -f $MODPATH/system/product/overlay $MODPATH/system/odm
+      ui_print " "
+    else
+      ui_print "! Kitsune Mask/Magisk Delta is not installed or"
+      ui_print "  the version doesn't support /odm"
+      ui_print " "
+    fi
+  elif [ ! -d /product/overlay ]\
+  || [ "`grep_prop overlay.location $OPTIONALS`" == vendor ]; then
+    ui_print "- Using /vendor/overlay/ instead of /product/overlay/"
+    mkdir -p $MODPATH/system/vendor
+    mv -f $MODPATH/system/product/overlay $MODPATH/system/vendor
+    ui_print " "
+  fi
 fi
 
 # media

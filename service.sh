@@ -32,23 +32,9 @@ else
 fi
 
 # function
-grant_permission() {
+appops_set() {
 appops set $PKG WRITE_SETTINGS allow
 appops set $PKG SYSTEM_ALERT_WINDOW allow
-pm grant $PKG android.permission.READ_EXTERNAL_STORAGE
-pm grant $PKG android.permission.WRITE_EXTERNAL_STORAGE
-if [ "$API" -ge 29 ]; then
-  pm grant $PKG android.permission.ACCESS_MEDIA_LOCATION 2>/dev/null
-  appops set $PKG ACCESS_MEDIA_LOCATION allow
-fi
-if [ "$API" -ge 33 ]; then
-  (
-  pm grant $PKG android.permission.READ_MEDIA_AUDIO
-  pm grant $PKG android.permission.READ_MEDIA_VIDEO
-  pm grant $PKG android.permission.READ_MEDIA_IMAGES
-  ) 2>/dev/null
-  appops set $PKG ACCESS_RESTRICTED_SETTINGS allow
-fi
 appops set $PKG LEGACY_STORAGE allow
 appops set $PKG READ_EXTERNAL_STORAGE allow
 appops set $PKG WRITE_EXTERNAL_STORAGE allow
@@ -58,6 +44,9 @@ appops set $PKG READ_MEDIA_IMAGES allow
 appops set $PKG WRITE_MEDIA_AUDIO allow
 appops set $PKG WRITE_MEDIA_VIDEO allow
 appops set $PKG WRITE_MEDIA_IMAGES allow
+if [ "$API" -ge 29 ]; then
+  appops set $PKG ACCESS_MEDIA_LOCATION allow
+fi
 if [ "$API" -ge 30 ]; then
   appops set $PKG MANAGE_EXTERNAL_STORAGE allow
   appops set $PKG NO_ISOLATED_STORAGE allow
@@ -65,6 +54,9 @@ if [ "$API" -ge 30 ]; then
 fi
 if [ "$API" -ge 31 ]; then
   appops set $PKG MANAGE_MEDIA allow
+fi
+if [ "$API" -ge 33 ]; then
+  appops set $PKG ACCESS_RESTRICTED_SETTINGS allow
 fi
 if [ "$API" -ge 34 ]; then
   appops set $PKG READ_MEDIA_VISUAL_USER_SELECTED allow
@@ -87,25 +79,22 @@ fi
 
 # grant
 PKG=com.miui.home
-pm grant $PKG android.permission.WRITE_SECURE_SETTINGS
-pm grant $PKG android.permission.READ_CALENDAR
-pm grant $PKG android.permission.WRITE_CALENDAR
-pm grant $PKG android.permission.READ_PHONE_STATE
-pm grant $PKG android.permission.CALL_PHONE
-#pm grant $PKG android.permission.CAMERA
-pm grant $PKG android.permission.READ_CONTACTS
-appops set $PKG GET_USAGE_STATS allow
-grant_permission
+if appops get $PKG > /dev/null 2>&1; then
+  pm grant --all-permissions $PKG
+  appops set $PKG GET_USAGE_STATS allow
+  appops_set
+fi
 
 # grant
 PKG=com.android.quicksearchbox
-pm grant $PKG android.permission.READ_CONTACTS
-pm grant $PKG android.permission.READ_PHONE_STATE
-grant_permission
-if getprop ro.product.mod_device | grep _global; then
-  pm disable $PKG
-else
-  pm enable $PKG
+if appops get $PKG > /dev/null 2>&1; then
+  pm grant --all-permissions $PKG
+  appops_set
+  if getprop ro.product.mod_device | grep _global; then
+    pm disable $PKG
+  else
+    pm enable $PKG
+  fi
 fi
 
 
