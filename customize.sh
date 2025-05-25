@@ -264,10 +264,34 @@ if [ "`grep_prop miui.recents $OPTIONALS`" == 1 ]; then
   done
   ui_print " "
   DIR=/overlay/PixelConfigOverlayCommon
-  [ -d /product$DIR ] && REPLACE="$REPLACE /product$DIR"
-  [ -d /vendor$DIR ] && REPLACE="$REPLACE /vendor$DIR"
-  [ -d /odm$DIR ] && REPLACE="$REPLACE /system/odm$DIR"
-  [ -d /vendor/odm$DIR ] && REPLACE="$REPLACE /vendor/odm$DIR"
+  if [ -d /product$DIR ]; then
+    REPLACE="$REPLACE /system/product$DIR"
+  fi
+  if [ -f /product$DIR.apk ]; then
+    mktouch $MODPATH/system/product$DIR.apk
+  fi
+  if [ -d /vendor$DIR ]; then
+    REPLACE="$REPLACE /system/vendor$DIR"
+  fi
+  if [ -f /vendor$DIR.apk ]; then
+    mktouch $MODPATH/system/vendor$DIR.apk
+  fi
+  if [ -d /odm$DIR ]\
+  && [ "`realpath /odm$DIR`" == /odm$DIR ]; then
+    REPLACE="$REPLACE /system/odm$DIR"
+  fi
+  if [ -f /odm$DIR.apk ]\
+  && [ "`realpath /odm$DIR.apk`" == /odm$DIR.apk ]; then
+    mktouch $MODPATH/system/odm$DIR.apk
+  fi
+  if [ -d /vendor/odm$DIR ]\
+  && [ "`realpath /vendor/odm$DIR`" == /vendor/odm$DIR ]; then
+    REPLACE="$REPLACE /system/vendor/odm$DIR"
+  fi
+  if [ -f /vendor/odm$DIR.apk ]\
+  && [ "`realpath /vendor/odm$DIR.apk`" == /vendor/odm$DIR.apk ]; then
+    mktouch $MODPATH/system/vendor/odm$DIR.apk
+  fi
 else
   RECENTS=false
   rm -rf $MODPATH/system/product/overlay
@@ -307,20 +331,17 @@ sed -i 's|#2||g' $MODPATH/post-fs-data.sh
 }
 permissive() {
 FILE=/sys/fs/selinux/enforce
-SELINUX=`cat $FILE`
-if [ "$SELINUX" == 1 ]; then
-  if ! setenforce 0; then
-    echo 0 > $FILE
-  fi
-  SELINUX=`cat $FILE`
-  if [ "$SELINUX" == 1 ]; then
+FILE2=/sys/fs/selinux/policy
+if [ "`toybox cat $FILE`" = 1 ]; then
+  chmod 640 $FILE
+  chmod 440 $FILE2
+  echo 0 > $FILE
+  if [ "`toybox cat $FILE`" = 1 ]; then
     ui_print "  Your device can't be turned to Permissive state."
     ui_print "  Using Magisk Permissive mode instead."
     permissive_2
   else
-    if ! setenforce 1; then
-      echo 1 > $FILE
-    fi
+    echo 1 > $FILE
     sed -i 's|#1||g' $MODPATH/post-fs-data.sh
   fi
 else
@@ -394,24 +415,35 @@ hide_oat
 # overlay
 if [ "$RECENTS" == true ]; then
   if [ "`grep_prop overlay.location $OPTIONALS`" == odm ]\
-  && [ -d /odm/overlay ]; then
+  && [ -d /odm/overlay ]\
+  && [ "`realpath /odm/overlay`" == /odm/overlay ]; then
     if grep /odm /data/adb/magisk/magisk\
     || grep /odm /data/adb/magisk/magisk64\
     || grep /odm /data/adb/magisk/magisk32; then
       ui_print "- Using /odm/overlay/ instead of /product/overlay/"
       mkdir -p $MODPATH/system/odm
-      mv -f $MODPATH/system/product/overlay $MODPATH/system/odm
+      cp -rf $MODPATH/system/product/overlay $MODPATH/system/odm
+      rm -rf $MODPATH/system/product/overlay
       ui_print " "
     else
       ui_print "! Kitsune Mask/Magisk Delta is not installed or"
       ui_print "  the version doesn't support /odm"
       ui_print " "
     fi
+  elif [ "`grep_prop overlay.location $OPTIONALS`" == odm ]\
+  && [ -d /vendor/odm/overlay ]\
+  && [ "`realpath /vendor/odm/overlay`" == /vendor/odm/overlay ]; then
+    ui_print "- Using /vendor/odm/overlay/ instead of /product/overlay/"
+    mkdir -p $MODPATH/system/vendor/odm
+    cp -rf $MODPATH/system/product/overlay $MODPATH/system/vendor/odm
+    rm -rf $MODPATH/system/product/overlay
+    ui_print " "
   elif [ ! -d /product/overlay ]\
   || [ "`grep_prop overlay.location $OPTIONALS`" == vendor ]; then
     ui_print "- Using /vendor/overlay/ instead of /product/overlay/"
     mkdir -p $MODPATH/system/vendor
-    mv -f $MODPATH/system/product/overlay $MODPATH/system/vendor
+    cp -rf $MODPATH/system/product/overlay $MODPATH/system/vendor
+    rm -rf $MODPATH/system/product/overlay
     ui_print " "
   fi
 fi
