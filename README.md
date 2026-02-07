@@ -17,16 +17,16 @@
 ## Requirements
 - NOT in Miui ROM
 - Android 5 (SDK 21) and up
-- Magisk or KernelSU installed
+- Magisk or Kitsune Mask or KernelSU or Apatch installed
 - Miui Core Magisk Module installed
 - Full gesture navigation requires android.permission.INJECT_EVENTS which can only be granted in AOSP signatured ROM like Pixel Experience ROM or disabled Android Signature Verification in Android 13 (SDK 33) and bellow.
 
 ## Installation Guide & Download Link
+- If you are using KernelSU, you need to disable Unmount Modules by Default in KernelSU app settings and install https://github.com/KernelSU-Modules-Repo/meta-overlayfs first
 - Install Miui Core Magisk Module first: https://github.com/reiryuki/Miui-Core-Magisk-Module
 - If you want to activate the recents provider, READ Optionals bellow!
-- Install this module https://www.pling.com/p/1680776/ via Magisk app or KernelSU app or Recovery if Magisk installed
+- Install this module https://www.pling.com/p/1680776/ via Magisk app or Kitsune Mask app or KernelSU app or Apatch app or Recovery if Magisk or Kitsune Mask installed
 - If you want App Vault to be working, install Miui App Vault Magisk Module: https://github.com/reiryuki/Miui-App-Vault-Magisk-Module & Miui Security Magisk Module: https://github.com/reiryuki/Miui-Security-Center-Magisk-Module except in global mode
-- If you are using KernelSU, you need to disable Unmount Modules by Default in KernelSU app settings
 - Reboot
 - If you are using KernelSU, you need to allow superuser list manually all package name listed in package.txt (enable show system apps) and reboot afterwards
 - Change your default launcher to this Miui Home System Launcher via Settings app (or you can copy the content of default.sh and paste it to Termux app. Type su and grant root first!)
