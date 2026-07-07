@@ -217,7 +217,7 @@ ui_print " "
 APP=MiuiHome
 PKG=com.miui.home
 #if [ "$BOOTMODE" == true ]; then
-#  if ! appops get $PKG > /dev/null 2>&1; then
+#  if ! appops get $PKG >/dev/null 2>&1; then
 #    test_signature
 #  fi
 #fi
@@ -243,7 +243,8 @@ for NAME in $NAMES; do
    /persist/magisk/$NAME\
    /data/unencrypted/magisk/$NAME\
    /cache/magisk/$NAME\
-   /cust/magisk/$NAME
+   /cust/magisk/$NAME\
+   /klogdump/magisk/$NAME
 done
 }
 
@@ -689,7 +690,7 @@ for FILE in $FILES; do
     LIST=`cat $FILE | sed 's|><|>\n<|g'`
     RES=`echo "$LIST" | grep -A$COUNT '<package name="com.miui.home">'`
     until echo "$RES" | grep -q '</package>'; do
-      COUNT=`expr $COUNT + 1`
+      COUNT=$((COUNT + 1))
       RES=`echo "$LIST" | grep -A$COUNT '<package name="com.miui.home">'`
     done
     } 2>/dev/null
@@ -916,7 +917,12 @@ if [ "$API" -lt 35 ]; then
   patch_runtime_permisions
 fi
 
-
+# prepare
+DIR=/storage/emulated/"$UID"/Android/data/com.miui.home/files
+ui_print "- Creating directories:"
+ui_print "  $DIR"
+mkdir -p $DIR
+ui_print " "
 
 
 
