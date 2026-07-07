@@ -14,6 +14,7 @@ Home launcher app by Xiaomi Inc. ported and integrated as a Magisk Module for al
 ## Changelog
 
 v2.5
+- Fix READ_DEVICE_CONFIG permission
 - Fix recents provider in Android 16 (SDK 36)
 - Prepare /storage/emulated/"$UID"/Android/data/com.miui.home/files directories
 - Update libmagiskpolicy.so from Magisk (stable) 30.7 (30700)

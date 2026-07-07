@@ -481,6 +481,7 @@ for FILE in $FILES; do
   if grep -q '<package name="com.miui.home" />' $FILE; then
     sed -i 's|<package name="com.miui.home" />|\
 <package name="com.miui.home">\
+<permission name="android.permission.READ_DEVICE_CONFIG" granted="true" flags="0" />\
 <permission name="android.permission.INPUT_CONSUMER" granted="true" flags="0" />\
 <permission name="android.permission.REAL_GET_TASKS" granted="true" flags="0" />\
 <permission name="android.permission.WRITE_SETTINGS" granted="true" flags="0" />\
@@ -584,6 +585,7 @@ for FILE in $FILES; do
   elif grep -q '<package name="com.miui.home"/>' $FILE; then
     sed -i 's|<package name="com.miui.home"/>|\
 <package name="com.miui.home">\
+<permission name="android.permission.READ_DEVICE_CONFIG" granted="true" flags="0" />\
 <permission name="android.permission.INPUT_CONSUMER" granted="true" flags="0" />\
 <permission name="android.permission.REAL_GET_TASKS" granted="true" flags="0" />\
 <permission name="android.permission.WRITE_SETTINGS" granted="true" flags="0" />\
@@ -703,6 +705,7 @@ for FILE in $FILES; do
     if [ "$PATCH" == true ]; then
       sed -i 's|<package name="com.miui.home">|\
 <package name="com.miui.home">\
+<permission name="android.permission.READ_DEVICE_CONFIG" granted="true" flags="0" />\
 <permission name="android.permission.INPUT_CONSUMER" granted="true" flags="0" />\
 <permission name="android.permission.REAL_GET_TASKS" granted="true" flags="0" />\
 <permission name="android.permission.WRITE_SETTINGS" granted="true" flags="0" />\
@@ -807,6 +810,7 @@ for FILE in $FILES; do
   else
     sed -i 's|</runtime-permissions>|\
 <package name="com.miui.home">\
+<permission name="android.permission.READ_DEVICE_CONFIG" granted="true" flags="0" />\
 <permission name="android.permission.INPUT_CONSUMER" granted="true" flags="0" />\
 <permission name="android.permission.REAL_GET_TASKS" granted="true" flags="0" />\
 <permission name="android.permission.WRITE_SETTINGS" granted="true" flags="0" />\
