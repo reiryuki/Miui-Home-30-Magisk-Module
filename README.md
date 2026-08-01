@@ -77,20 +77,15 @@ https://t.me/androidryukimods/370
 - If you are using KernelSU, you need to disable Unmount Modules by Default in KernelSU app settings and install https://github.com/KernelSU-Modules-Repo/meta-overlayfs or https://github.com/KernelSU-Modules-Repo/magic_mount_rs or https://github.com/KernelSU-Modules-Repo/hybrid_mount or https://github.com/maxsteeel/nomount first depending on ROM compatibility
 - Install Miui Core Magisk Module first: https://github.com/reiryuki/Miui-Core-Magisk-Module
 - If you want to activate the recents provider, READ Optionals bellow!
-- Install this module https://devuploads.com/vu4tt5cjlymi via Magisk app or Kitsune Mask app or KernelSU app or Apatch app or Recovery if Magisk or Kitsune Mask installed
+- Install this module https://bicolink.com/kFMpJLyWk via Magisk app or Kitsune Mask app or KernelSU app or Apatch app or Recovery if Magisk or Kitsune Mask installed
 - If you want App Vault to be working, install Miui App Vault Magisk Module: https://github.com/reiryuki/Miui-App-Vault-Magisk-Module & Miui Security Magisk Module: https://github.com/reiryuki/Miui-Security-Center-Magisk-Module except in global mode
 - Reboot
 - If you are using KernelSU, you need to allow superuser list manually all package name listed in package.txt (enable show system apps) and reboot afterwards
 - Change your default launcher to this Miui Home System Launcher via Settings app (or you can copy the content of default.sh and paste it to Termux/Terminal Emulator app. Type su and grant root first!)
 - If you change from hardware navbar to software navbar or vice-versa, you need to force stop this launcher to fix display bug.
 
-## Known Issues
-- Some widgets doesn't work
-- Uninstall app requires 2 confirmations
-- Minimize button in Freeform window doesn't work because I'm using "setTaskAlwaysOnTop" method so it can be showed on top of current task
-- Split screen doesn't work except this launcher is set as default launcher if the recents provider is activated
-- Does not support navbar overlay in Android 15 QPR2 ROMs and up if recents provider is activated
-- Freeform header is missing in Android 16
+## Download Tutorial
+https://t.me/ryukinotes/97
 
 ## Optionals
 - https://t.me/ryukinotes/42
@@ -99,6 +94,14 @@ https://t.me/androidryukimods/370
 ## Troubleshootings
 - https://t.me/ryukinotes/19
 - Global: https://t.me/ryukinotes/34
+
+## Known Issues
+- Some widgets doesn't work
+- Uninstall app requires 2 confirmations
+- Minimize button in Freeform window doesn't work because I'm using "setTaskAlwaysOnTop" method so it can be showed on top of current task
+- Split screen doesn't work except this launcher is set as default launcher if the recents provider is activated
+- Does not support navbar overlay in Android 15 QPR2 ROMs and up if recents provider is activated
+- Freeform header is missing in Android 16
 
 ## Support & Bug Report
 - https://t.me/ryukinotes/54
